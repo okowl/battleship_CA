@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 
 public class utility {
 
-
     String number_players;
     String age_p1, age_p2, age_p3, age_p4;
 
