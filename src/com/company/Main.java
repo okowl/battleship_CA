@@ -1,12 +1,11 @@
 package com.company;
 
 /*
-*
-*
-*
-*
-*
-* */
+* Battle ship CA
+* Student name: Olga Kiseleva
+* Student number: 2017136 IT2017 Group A
+*/
+
 public class Main {
 
     //int[] ages;
@@ -17,10 +16,10 @@ public class Main {
         /*int numberOfPlayers = 1; // you can use br.readLine for storing value here
 
         if(numberOfPlayers == 1){
-            players player1 = new players("Olga", "23", "blah@gmail.com");
+            utility player1 = new utility("Olga", "23", "blah@gmail.com");
         }else if (numberOfPlayers == 2){
-            players player1 = new players("Olga", "23", "blah@gmail.com");
-            players player2 = new players("Felipe", "26", "bleh@gmail.com");
+            utility player1 = new utility("Olga", "23", "blah@gmail.com");
+            utility player2 = new utility("Felipe", "26", "bleh@gmail.com");
         }
 
         this.age = new int[numberOfPlayers];
@@ -32,11 +31,11 @@ public class Main {
 
     */}
 
-    //just a welcome method that prints some rules and initiates collecting of information about players in players class
+    //just a welcome method that prints some rules and initiates collecting of information about utility in utility class
     void welcome(){
         System.out.println("***************************************************"+"\n"+"\n"+"Welcome to the BattleShip Game of the year edition" +
                 "\n You can play it alone or with friends"+"\n"+"\n"+"***************************************************");
-        players play = new players();
+        utility play = new utility();
         play.menu();
     }
 

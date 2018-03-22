@@ -2,15 +2,15 @@ package com.company;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class players {
+public class utility {
 
 
     String number_players;
     String age_p1, age_p2, age_p3, age_p4;
 
-    //checking number of players for program
+    //checking number of utility for program
     void menu(){
-        print("\nHow many players do we have today?\nMin = 1, max = 4");
+        print("\nHow many utility do we have today?\nMin = 1, max = 4");
         number_players = validation("[1-4]+", "!!!!!! Please enter just a numbers from 1 to 4 !!!!!!");
     }
 
@@ -52,14 +52,13 @@ public class players {
 
     //method that printing stuff because I don't want to do System.out.println
     public void print(Object... something){
-        //loop for printing
-        for (int i = 0; i< something.length; i++){
+        //loop for printing and adding comas where it's needed
+       for (int i = 0; i< something.length; i++){
             if(i == something.length-1){
                 System.out.println(something[i]);
             }else{
                 System.out.print(something[i] + ", ");
             }
-
         }
 
     }
