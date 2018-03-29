@@ -14,12 +14,12 @@ public class Main {
         welcome();
     }
 
-    //just a welcome method that prints some rules and initiates collecting of information about utility in utility class
+    //just a welcome method that prints some rules and initiates collecting of information about Utility in Utility class
     void welcome(){
         System.out.println("***************************************************"+"\n"+"\n"+"Welcome to the BattleShip Game of the year edition" +
                 "\n You can play it alone or with friends"+"\n"+"\n"+"***************************************************");
-        game play = new game();
-        play.menu();
+        Game play = new Game();
+        play.start();
     }
 
     public static void main(String[] args) {

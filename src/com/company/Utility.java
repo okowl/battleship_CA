@@ -2,7 +2,7 @@ package com.company;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class utility {
+public class Utility {
 
 
     //method for validation that reads user input and process it to validation
