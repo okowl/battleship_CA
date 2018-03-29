@@ -4,14 +4,6 @@ import java.io.InputStreamReader;
 
 public class utility {
 
-    String number_players;
-    String age_p1, age_p2, age_p3, age_p4;
-
-    //checking number of utility for program
-    void menu(){
-        print("\nHow many utility do we have today?\nMin = 1, max = 4");
-        number_players = validation("[1-4]+", "!!!!!! Please enter just a numbers from 1 to 4 !!!!!!");
-    }
 
     //method for validation that reads user input and process it to validation
     public String read_from_keyboard(){
@@ -34,7 +26,7 @@ public class utility {
         String txt;
 
         //just a loop to repeat inserting until result is correct (user inserted just a numbers)
-        //got text from reading keyboar method and checks it
+        //got text from reading keyboard method and checks it
         do{
             txt = read_from_keyboard();
             if(!txt.matches(regex)){
