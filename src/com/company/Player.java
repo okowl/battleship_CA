@@ -15,10 +15,9 @@ public class Player {
         //starting with the name of the Player
         u.print("Enter your first name please");
         String first_n = u.validation("[a-zA-Z]+", "Please use just an alphabet or translate it");
-        u.print("Enter your last name");
-        String last_n = u.validation("[a-zA-Z]+", "Please use just an alphabet or translate it");
-        //name is now ready
-        name = first_n + " " + last_n;
+        /*u.print("Enter your last name");
+        String last_n = u.validation("[a-zA-Z]+", "Please use just an alphabet or translate it");*/
+        name = first_n + " " /*+ last_n*/;
 
         //now email
         //u.print("Insert your email address please");
@@ -27,9 +26,9 @@ public class Player {
                 "Invalid email address, please enter a valid one ");
 */
         //now age
-        u.print("How old are you?");
+        /*u.print("How old are you?");
         String p_age = u.validation("[1-9]+", "Please use just a numbers");
-        age = Integer.parseInt(p_age);
+        age = Integer.parseInt(p_age);*/
     }
 
     //here are getters
@@ -38,10 +37,13 @@ public class Player {
    }
     /*public String getMail() {
         return mail;
-    }*/
+    }
     public int getAge() {
         return age;
     }
+    public int score() {
+        return score;
+    }*/
 
 
 }

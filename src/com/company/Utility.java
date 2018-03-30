@@ -54,5 +54,18 @@ public class Utility {
 
     }
 
+    //method to print board with extra spaces between columns
+    public void print_board(String [][] board, int x, int y){
+        //printing loop
+        for(int i = 0; i < x; i++) {
+            for(int j = 0; j < y; j++) {
+                System.out.print(board[i][j]);
+                System.out.print("\t");
+            }
+            System.out.println();
+        }
+
+    }
 
 }
+
