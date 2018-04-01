@@ -1,15 +1,19 @@
 package com.company;
 import java.util.Random;
+import java.util.Arrays;
 
 public class Board {
-
-    public Integer x;
-    public Integer y;
+    //initializing all values and parametrs
+    public int x;
+    public int y;
+    public int size;
     private String [][] my_board;
+    private String [] my_ship;
+    private boolean horizon;
     Utility u = new Utility();
-    //Game g = new Game();
 
-    public void new_board(int x, int y){
+    //method to set up board
+    void new_board(int x, int y){
         this.x = x;
         this.y = y;
         int i,j;
@@ -44,16 +48,57 @@ public class Board {
                 }
             }
         }
+        place_ship();
+    }
+
+    //setting up ship, because it's only 1 ship I decided to store coordinates in 1 int and 1 array of integers
+    //in case if we need to have more than 2 ships it will be more efficient and more scalable to use two 2d arrays
+
+    void place_ship() {
+
+        this.size = Math.round(x / 3);//based on number of columns find a ship size
+        this.horizon = new Random().nextBoolean();//randomizing horizontal or vertical layout of ship
+        Random for_cord = new Random();
+        int ship_x = for_cord.nextInt(x) + 1; //generating random point for x
+        int ship_y = for_cord.nextInt(y) + 1; //generating random point for y
+
+        my_ship = new String[size];//setting up an array for horizontal or vertical coordinates
+        //if random decided to place ship horizontal it will happen here
+        if(horizon  == true){
+            if(ship_x+size >= x){
+                do{                     //moving x if ship cunt fit in at this position
+                   ship_x = ship_x - 1;
+                } while(ship_x+size == x);
+            }
+            //loop to fil array with x coordinates
+            for (int i = 0; i < size; i++){
+                my_ship[i] = String.valueOf(ship_x+" , " + ship_y);
+                ship_x = ship_x + 1;
+
+            }
+        //if random decided to place ship vertical it will happen here
+        } else {
+            if(ship_y+size >= y){
+                do{                     //moving y if ship cunt fit in at this position
+                    ship_y = ship_y - 1;
+                } while(ship_y+size == y);
+            }
+            //loop to fil array with y coordinates
+            for (int i = 0; i < size; i++){
+                my_ship[i] = String.valueOf(ship_x+" , " + ship_y);
+                ship_y = ship_y + 1;
+
+            }
+        }
 
     }
 
-    //setter for board
+    //setter for this board class
     public String[][] getMy_board() {
         return my_board;
     }
-
-    public void place_ship(/*int number*/){
-
+    public String[] getMy_ship(){
+        return my_ship;
     }
 
 

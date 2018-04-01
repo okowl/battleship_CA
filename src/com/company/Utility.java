@@ -56,6 +56,7 @@ public class Utility {
 
     //method to print board with extra spaces between columns
     public void print_board(String [][] board, int x, int y){
+        print("'~'  - haven't been checked, * - miss, x - hit");
         //printing loop
         for(int i = 0; i < x; i++) {
             for(int j = 0; j < y; j++) {

@@ -7,7 +7,7 @@ public class Game {
     ArrayList <Player> p_list = new ArrayList<>();
     private int number_players;
     private int x, y;
-    //creating an instance to make my Utility methods accessible here
+    //creating an instance to make my Utility and board methods available in this class methods accessible here
     Utility u = new Utility();
     Board b = new Board();
 
@@ -58,7 +58,7 @@ public class Game {
         set_board();
 
         //u.print(p_list.get(0).getAge());
-        //u.print(p_list.get(1).getAge());
+
     }
 
     //method to get the size of the board from user and set up board
@@ -72,9 +72,10 @@ public class Game {
         u.print("How many rows do you want?");
         String rows = u.validation("([1][0-9])|([2][0])", "Please use just numbers between 10 and 20");
         this.y = 1+Integer.parseInt(rows);
-
         b.new_board(x, y);
     }
+
+    //method that actually starting the game itself
 
 
 
