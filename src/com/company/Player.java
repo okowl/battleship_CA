@@ -5,7 +5,7 @@ public class Player {
     private String name;
     private String mail;
     private int age;
-    private int score;
+    private int score = 10;
 
     //creating an instance to make my Utility methods accessible here
     Utility u = new Utility();
@@ -32,12 +32,17 @@ public class Player {
     }
 
     //method that will change players score
-    void change_score(Boolean was_miss){
+    public void change_score(Boolean was_miss){
         if(was_miss){
-            this.score = this.score + 2; //if miss + 2
+            this.score += 2; //if miss + 2
         } else {
-            this.score = this.score - 1; // if hit + 1
+            this.score -= 1; // if hit + 1
         }
+    }
+
+    //method that resets all scores for all players if they want to play again
+    public void reset_score(){
+        this.score = 10;
     }
 
     //here are getters

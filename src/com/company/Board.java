@@ -68,7 +68,7 @@ public class Board {
             if(ship_x+size >= x){
                 do{                     //moving x if ship cant fit in at this position
                    ship_x = ship_x - 1;
-                } while(ship_x+size == x);
+                } while(ship_x+size > x);
             }
             //loop to fill array with x coordinates
             for (int i = 0; i < size; i++){
@@ -81,7 +81,7 @@ public class Board {
             if(ship_y+size >= y){
                 do{                     //moving y if ship cant fit in at this position
                     ship_y = ship_y - 1;
-                } while(ship_y+size == y);
+                } while(ship_y+size > y);
             }
             //loop to fill array with y coordinates
             for (int i = 0; i < size; i++){
@@ -114,9 +114,9 @@ public class Board {
         user_y = Integer.parseInt(parts[1]);
 
         if(miss == true){ //just changing the value at the position (x,y) on the board
-            my_board[x][y] = "*"; //for miss
+            my_board[user_x][user_y] = "*"; //for miss
         } else {
-            my_board[x][y] = "X"; //for hit
+            my_board[user_x][user_y] = "X"; //for hit
         }
     }
 

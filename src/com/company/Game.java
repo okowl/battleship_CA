@@ -34,7 +34,7 @@ public class Game {
         do{
             //creating an instance to make my players methods accessible here
             Player p = new Player();
-            u.print("Player "+print+" now it is your tern");
+            u.print("Player "+print+" now it is your turn");
             p.get_info();
             //int age = p.getAge();
 
@@ -66,7 +66,7 @@ public class Game {
     //method to get the size of the board from user and set up board
     void new_board(){
 
-        u.print("Let set the board! You can make it at least 10 by 10, but maximum 20 by 20" +
+        u.print("Let's set the board! You can make it at least 10 by 10, but maximum 20 by 20" +
                 "\nHow many rows do you want?");
         String columns = u.validation("([1][0-9])|([2][0])", "Please use just numbers between 10 and 20");
         this.x = 1+Integer.parseInt(columns);
@@ -81,17 +81,22 @@ public class Game {
     //method that actually starting the game itself
     void start_playing(){
         //initializing all parameters that game needs to process
-        int hits_left = b.getSize();
+        int hits_left = 0;
         String attempt;
         boolean miss;
-        Player p = new Player();
+        boolean game_finished = false;
 
         u.print("Lets start the game! \n" );
 
         //loop that keeps game on while th
-        do{
+        while(!game_finished){
             //loop that switching terns between players
             for(int i = 0; i < number_players; i++){
+                //
+                //uncomment this line if you want to see ships coordinates and check my program faster
+                //
+                //System.out.println("Ship coordinates "+Arrays.toString(b.getMy_ship()));
+                //
                 u.print_board(b.getMy_board(), x, y);
                 u.print("\nIt's "+p_list.get(i).getName()+ "turn! \n");
 
@@ -99,25 +104,48 @@ public class Game {
 
                 if(is_it_hit(attempt) == true){ //if ship was discorded at this position for first time
 
-                    hits_left = hits_left - 1; //change hit's that left to do before the game will be finished
-                    u.print("\n*************Congrats, it is hit*************\n");
+                    hits_left = hits_left + 1; //change hit's that left to do before the game will be finished
+                    u.print("\n************* Congrats, it is hit *************\n");
                     miss = false;
                     b.change_my_board(attempt, miss); //send coordinates to mark them at the board
+                    //if statement for a win condition;
+                    if(hits_left == b.getSize()){
+                        game_finished = true;
+                        p_list.get(i).change_score(miss); //change the score for last player
+                        break; // exit for loop in case ship size smaller than amount of players
+                    }
 
                 } else { //if it's miss
-                    u.print("\n*************Sorry, it's is a miss*************\n");
+                    u.print("\n************* Sorry, it's is a miss *************\n");
                     miss = true;
                     b.change_my_board(attempt, miss);//send coordinates to mark them at the board
                 }
-                p.change_score(miss); //change the score of this particular player
-                u.print("*******"+p_list.get(i).getScore());
+                p_list.get(i).change_score(miss); //change the score of this particular player
             }
+        }
 
-        } while(hits_left != 0);
-
-
+        winner();
     }
 
+    //method to find a winner
+    void winner(){
+        String winner = "";
+        int win_score = 100000;
+
+        //loop that checks which player has the smallest score and printing the smallest score and winner's name
+        for(int i = 0; i < number_players; i++){
+           if(p_list.get(i).getScore() < win_score){
+               winner = p_list.get(i).getName();
+               win_score = p_list.get(i).getScore();
+           }
+
+        }
+
+        u.print("***************************************************"
+        +"\nAnd the winner is: "+winner+" with score: "+win_score);
+
+        play_again();
+    }
 
 
     //method to get valid cooridinates greater that 0 and less than x/y
@@ -184,6 +212,10 @@ public class Game {
             String same_players = u.validation("[1-2]", "Please use just numbers 1 or 2");
             //if player don't want to re-enter all information program will reset board
             if(same_players.equals(1)){
+                //loop to reset all players score
+                for(int i = 0; i < number_players; i++){
+                    p_list.get(i).reset_score(); //reset all scores back to 10 points
+                }
                 new_board();
             } else {
              start();   //or start from the beginning
@@ -194,6 +226,8 @@ public class Game {
         }
 
     }
+
+
 
 
 
