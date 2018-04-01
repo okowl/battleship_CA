@@ -5,7 +5,7 @@ public class Player {
     private String name;
     //private String mail;
     private int age;
-    public int score = 0;
+    private int score = 10;
 
     //creating an instance to make my Utility methods accessible here
     Utility u = new Utility();

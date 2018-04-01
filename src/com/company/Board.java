@@ -51,7 +51,7 @@ public class Board {
         place_ship();
     }
 
-    //setting up ship, because it's only 1 ship I decided to store coordinates in 1 int and 1 array of integers
+    //setting up ship, because it's only 1 ship I decided to store coordinates in the array of Strings, like a coordinates
     //in case if we need to have more than 2 ships it will be more efficient and more scalable to use two 2d arrays
 
     void place_ship() {
@@ -62,15 +62,15 @@ public class Board {
         int ship_x = for_cord.nextInt(x) + 1; //generating random point for x
         int ship_y = for_cord.nextInt(y) + 1; //generating random point for y
 
-        my_ship = new String[size];//setting up an array for horizontal or vertical coordinates
+        my_ship = new String[size];//setting up an array
         //if random decided to place ship horizontal it will happen here
         if(horizon  == true){
             if(ship_x+size >= x){
-                do{                     //moving x if ship cunt fit in at this position
+                do{                     //moving x if ship cant fit in at this position
                    ship_x = ship_x - 1;
                 } while(ship_x+size == x);
             }
-            //loop to fil array with x coordinates
+            //loop to fill array with x coordinates
             for (int i = 0; i < size; i++){
                 my_ship[i] = String.valueOf(ship_x+" , " + ship_y);
                 ship_x = ship_x + 1;
@@ -79,11 +79,11 @@ public class Board {
         //if random decided to place ship vertical it will happen here
         } else {
             if(ship_y+size >= y){
-                do{                     //moving y if ship cunt fit in at this position
+                do{                     //moving y if ship cant fit in at this position
                     ship_y = ship_y - 1;
                 } while(ship_y+size == y);
             }
-            //loop to fil array with y coordinates
+            //loop to fill array with y coordinates
             for (int i = 0; i < size; i++){
                 my_ship[i] = String.valueOf(ship_x+" , " + ship_y);
                 ship_y = ship_y + 1;
@@ -101,6 +101,16 @@ public class Board {
         return my_ship;
     }
 
+    //method that changes value at the board
+
+    void change_my_board(int x, int y, Boolean miss){
+
+        if(miss == true){ //just changing the value at the position (x,y) on the board
+            my_board[x][y] = "*"; //for miss
+        } else {
+            my_board[x][y] = "x"; //for hit
+        }
+    }
 
 
 

@@ -73,9 +73,43 @@ public class Game {
         String rows = u.validation("([1][0-9])|([2][0])", "Please use just numbers between 10 and 20");
         this.y = 1+Integer.parseInt(rows);
         b.new_board(x, y);
+        start_playing();
     }
 
     //method that actually starting the game itself
+    void start_playing(){
+        int hits_left = 0;
+        u.print("Lets start the game! \n" );
+        while(hits_left == b.size){
+
+            for(int i = 0; i < number_players; i++){
+                System.out.println("It's "+p_list.get(i).getName()+ " turn! ");
+                u.print_board(b.getMy_board(), x, y);
+            }
+
+        }
+
+    }
+    //method to start new game with same players or new players
+    void play_again(){
+        u.print("Do you want to play again? \nPress 1 to start again. Press 2 to exit program");
+        String play_again = u.validation("[1-2]", "Please use just numbers 1 or 2"); //validation
+
+        if(play_again.equals("1")){
+            u.print("Do you want to change players? \nPress 1 to play with same people. Press 2 to start with new players.");
+            String same_players = u.validation("[1-2]", "Please use just numbers 1 or 2");
+            //if player don't want to re-enter all information progrmm will reset board
+            if(same_players.equals(1)){
+                set_board();
+            } else {
+             start();   //or start from the beginning
+            }
+
+        } else {
+            System.exit(0); //or exit the game
+        }
+
+    }
 
 
 
