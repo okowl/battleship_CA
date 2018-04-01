@@ -1,5 +1,7 @@
 package com.company;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class Game {
 
@@ -19,7 +21,7 @@ public class Game {
         String number = "";
         u.print("\nHow many players do we have today?\nMin = 1, max = 4");
         //validation is here
-        number = u.validation("[1-4]+", "!!!!!! Please enter just a numbers from 1 to 4 !!!!!!");
+        number = u.validation("[1-4]", "!!!!!! Please enter just a numbers from 1 to 4 !!!!!!");
         number_players = Integer.parseInt(number);
         Players();
     }
@@ -55,21 +57,21 @@ public class Game {
             }*/
 
         } while (counter != number_players);
-        set_board();
+        new_board();
 
         //u.print(p_list.get(0).getAge());
 
     }
 
     //method to get the size of the board from user and set up board
-    void set_board(){
+    void new_board(){
 
         u.print("Let set the board! You can make it at least 10 by 10, but maximum 20 by 20" +
-                "\nHow many columns do you want?");
+                "\nHow many rows do you want?");
         String columns = u.validation("([1][0-9])|([2][0])", "Please use just numbers between 10 and 20");
         this.x = 1+Integer.parseInt(columns);
 
-        u.print("How many rows do you want?");
+        u.print("How many columns do you want?");
         String rows = u.validation("([1][0-9])|([2][0])", "Please use just numbers between 10 and 20");
         this.y = 1+Integer.parseInt(rows);
         b.new_board(x, y);
@@ -78,29 +80,111 @@ public class Game {
 
     //method that actually starting the game itself
     void start_playing(){
-        int hits_left = 0;
-        u.print("Lets start the game! \n" );
-        while(hits_left == b.size){
+        //initializing all parameters that game needs to process
+        int hits_left = b.getSize();
+        String attempt;
+        boolean miss;
+        Player p = new Player();
 
+        u.print("Lets start the game! \n" );
+
+        //loop that keeps game on while th
+        do{
+            //loop that switching terns between players
             for(int i = 0; i < number_players; i++){
-                System.out.println("It's "+p_list.get(i).getName()+ " turn! ");
                 u.print_board(b.getMy_board(), x, y);
+                u.print("\nIt's "+p_list.get(i).getName()+ "turn! \n");
+
+                    attempt = valid_coordinates(); //get valid coordinates that wasn't used before
+
+                if(is_it_hit(attempt) == true){ //if ship was discorded at this position for first time
+
+                    hits_left = hits_left - 1; //change hit's that left to do before the game will be finished
+                    u.print("\n*************Congrats, it is hit*************\n");
+                    miss = false;
+                    b.change_my_board(attempt, miss); //send coordinates to mark them at the board
+
+                } else { //if it's miss
+                    u.print("\n*************Sorry, it's is a miss*************\n");
+                    miss = true;
+                    b.change_my_board(attempt, miss);//send coordinates to mark them at the board
+                }
+                p.change_score(miss); //change the score of this particular player
+                u.print("*******"+p_list.get(i).getScore());
             }
 
-        }
+        } while(hits_left != 0);
+
 
     }
+
+
+
+    //method to get valid cooridinates greater that 0 and less than x/y
+     String valid_coordinates(){
+        int user_x, user_y;
+        String attempt;
+        int print_x = x - 1;
+        int print_y = y - 1;
+        boolean ready;
+
+        u.print("Insert coordinates (x,y)");
+
+         do { //loop to get coordinates from user and validate them properly
+
+             attempt = u.validation("[0-9]+[,][0-9]+", "\nPlease use just numbers in format like this 0,0 ");
+
+             String[] parts = attempt.split(","); //splitting input to coordinates x and y
+             user_x = Integer.parseInt(parts[0]);
+             user_y = Integer.parseInt(parts[1]);
+
+             if(user_x <= print_x && user_y <= print_x){ //if both values are existing in on the board
+                 if(is_it_ok(user_x,user_y)){ //and this coordinates haven't been used that return coordinates back
+                     ready = true;
+                 } else { //all other else just made to make it cleare for user what exactly wrong with his coordinates
+                     u.print("This coordinate was used before. Please chose different coordinates");
+                     ready = false; }
+             } else {
+                 ready = false;
+                 u.print("Value is too big! Please insert just numbers from 1 to " + print_x + " for x and from 1 to "
+                         + print_y + " for y\nIn format like this(0,0)");
+             }
+
+         } while (ready == false);
+
+        return attempt;
+    }
+
+    //method that checking if users input equals an existing value in ships coordinate array
+    public boolean is_it_hit(String input){
+        String[] ship_cord = b.getMy_ship(); //getting ship coordinates
+        return Arrays.stream(ship_cord).parallel().anyMatch(input::equals); //checking
+    }
+
+    //method that checks if this spot has been hit before
+    public boolean is_it_ok(int u_x, int u_y){
+        String val_at_position = b.getMy_board()[u_x][u_y];
+        if(val_at_position.equals("-")){ //if symbol equals - this spot is empty
+            return true;
+        } else { //other players checked this spot
+            return false;
+        }
+
+
+    }
+
     //method to start new game with same players or new players
     void play_again(){
+
         u.print("Do you want to play again? \nPress 1 to start again. Press 2 to exit program");
         String play_again = u.validation("[1-2]", "Please use just numbers 1 or 2"); //validation
 
         if(play_again.equals("1")){
             u.print("Do you want to change players? \nPress 1 to play with same people. Press 2 to start with new players.");
             String same_players = u.validation("[1-2]", "Please use just numbers 1 or 2");
-            //if player don't want to re-enter all information progrmm will reset board
+            //if player don't want to re-enter all information program will reset board
             if(same_players.equals(1)){
-                set_board();
+                new_board();
             } else {
              start();   //or start from the beginning
             }

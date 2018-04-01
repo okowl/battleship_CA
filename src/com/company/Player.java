@@ -3,9 +3,9 @@ package com.company;
 public class Player {
 
     private String name;
-    //private String mail;
+    private String mail;
     private int age;
-    private int score = 10;
+    private int score;
 
     //creating an instance to make my Utility methods accessible here
     Utility u = new Utility();
@@ -31,6 +31,15 @@ public class Player {
         age = Integer.parseInt(p_age);*/
     }
 
+    //method that will change players score
+    void change_score(Boolean was_miss){
+        if(was_miss){
+            this.score = this.score + 2; //if miss + 2
+        } else {
+            this.score = this.score - 1; // if hit + 1
+        }
+    }
+
     //here are getters
     public String getName() {
        return name;
@@ -40,10 +49,10 @@ public class Player {
     }
     public int getAge() {
         return age;
-    }
-    public int score() {
-        return score;
     }*/
+    public int getScore() {
+        return score;
+    }
 
 
 }

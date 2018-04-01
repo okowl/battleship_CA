@@ -1,12 +1,12 @@
 package com.company;
 import java.util.Random;
-import java.util.Arrays;
+
 
 public class Board {
     //initializing all values and parametrs
     public int x;
     public int y;
-    public int size;
+    private int size;
     private String [][] my_board;
     private String [] my_ship;
     private boolean horizon;
@@ -22,10 +22,10 @@ public class Board {
         my_board = new String [x][y];
 
 
-        //loop to fill board with ~ symbols
+        //loop to fill board with - symbols
         for(i = 0 ; i < x; i++){
             for(j = 0 ; j < y; j++){
-                my_board[i][j] = "~";
+                my_board[i][j] = "-";
             }
         }
         //loop to fill first row of array with coordinates
@@ -72,7 +72,7 @@ public class Board {
             }
             //loop to fill array with x coordinates
             for (int i = 0; i < size; i++){
-                my_ship[i] = String.valueOf(ship_x+" , " + ship_y);
+                my_ship[i] = String.valueOf(ship_x+"," + ship_y);
                 ship_x = ship_x + 1;
 
             }
@@ -85,7 +85,7 @@ public class Board {
             }
             //loop to fill array with y coordinates
             for (int i = 0; i < size; i++){
-                my_ship[i] = String.valueOf(ship_x+" , " + ship_y);
+                my_ship[i] = String.valueOf(ship_x+"," + ship_y);
                 ship_y = ship_y + 1;
 
             }
@@ -100,15 +100,23 @@ public class Board {
     public String[] getMy_ship(){
         return my_ship;
     }
+    public int getSize(){
+        return size;
+    }
 
     //method that changes value at the board
 
-    void change_my_board(int x, int y, Boolean miss){
+    void change_my_board(String attempt, Boolean miss){
+        int user_x, user_y;
+
+        String[] parts = attempt.split(","); //splitting input to coordinates x and y
+        user_x= Integer.parseInt(parts[0]); //split number for x and y to mark this coordinates at the board
+        user_y = Integer.parseInt(parts[1]);
 
         if(miss == true){ //just changing the value at the position (x,y) on the board
             my_board[x][y] = "*"; //for miss
         } else {
-            my_board[x][y] = "x"; //for hit
+            my_board[x][y] = "X"; //for hit
         }
     }
 
