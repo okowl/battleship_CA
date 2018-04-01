@@ -36,17 +36,17 @@ public class Game {
             Player p = new Player();
             u.print("Player "+print+" now it is your turn");
             p.get_info();
-            //int age = p.getAge();
+            int age = p.getAge();
 
             //validation of under age/over age players
             //if players age ok add new Player object into array list
-            //if((age > 11) && (age < 99)){
+            if((age > 11) && (age < 99)){
 
                 p_list.add(p);
                 counter++; print++;
 
                 //if no let user to replace player or restart from beginning
-           /* } else {
+            } else {
                 u.print("Players should be older than 12 or younger than 99. Sorry.\n\nPress 1 if you can replace Player and continue" +
                         "\nPress 2 if you want to change number of players");
                 String restart = u.validation("[1-2]", "Please just use numbers 1 or 2");
@@ -54,8 +54,7 @@ public class Game {
                 if(restart.equals("2")){
                     start();
                 }
-            }*/
-
+            }
         } while (counter != number_players);
         new_board();
 
@@ -132,7 +131,8 @@ public class Game {
         String winner = "";
         int win_score = 100000;
 
-        //loop that checks which player has the smallest score and printing the smallest score and winner's name
+        //loop that checks which player has the smallest score
+        //if next player has smaller score - replace winner name and winner score
         for(int i = 0; i < number_players; i++){
            if(p_list.get(i).getScore() < win_score){
                winner = p_list.get(i).getName();
@@ -141,6 +141,7 @@ public class Game {
 
         }
 
+        //print game winner
         u.print("***************************************************"
         +"\nAnd the winner is: "+winner+" with score: "+win_score);
 
