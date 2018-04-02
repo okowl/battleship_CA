@@ -5,7 +5,8 @@ public class Player {
     private String name;
     private String mail;
     private int age;
-    private int score = 10;
+    private int hits = 0;
+    private int miss = 0;
 
     //creating an instance to make my Utility methods accessible here
     Utility u = new Utility();
@@ -31,18 +32,19 @@ public class Player {
         age = Integer.parseInt(p_age);
     }
 
-    //method that will change players score
-    public void change_score(Boolean was_miss){
-        if(was_miss){
-            this.score += 2; //if miss + 2
-        } else {
-            this.score -= 1; // if hit + 1
-        }
+    //if player hit ship hits + 1
+    public void change_hits(){
+        this.hits += 1;
+    }
+    //if player doesn't hit ship miss + 1
+    public void change_miss(){
+        this.miss += 1;
     }
 
     //method that resets all scores for all players if they want to play again
     public void reset_score(){
-        this.score = 10;
+        this.hits = 0;
+        this.miss = 0;
     }
 
     //here are getters
@@ -55,8 +57,12 @@ public class Player {
     public int getAge() {
         return age;
     }
-    public int getScore() {
-        return score;
+
+    public int getHits(){
+        return hits;
+    }
+    public int getMiss(){
+        return miss;
     }
 
 

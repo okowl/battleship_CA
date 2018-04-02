@@ -59,13 +59,13 @@ public class Board {
         this.size = Math.round(x / 3);//based on number of columns find a ship size
         this.horizon = new Random().nextBoolean();//randomizing horizontal or vertical layout of ship
         Random for_cord = new Random();
-        int ship_x = for_cord.nextInt(x) + 1; //generating random point for x
-        int ship_y = for_cord.nextInt(y) + 1; //generating random point for y
+        int ship_x = for_cord.nextInt(x-1) + 1; //generating random point for x
+        int ship_y = for_cord.nextInt(y-1) + 1; //generating random point for y
 
         my_ship = new String[size];//setting up an array
         //if random decided to place ship horizontal it will happen here
         if(horizon  == true){
-            if(ship_x+size >= x){
+            if(ship_x+size > x){
                 do{                     //moving x if ship cant fit in at this position
                    ship_x = ship_x - 1;
                 } while(ship_x+size > x);
@@ -78,7 +78,7 @@ public class Board {
             }
         //if random decided to place ship vertical it will happen here
         } else {
-            if(ship_y+size >= y){
+            if(ship_y+size > y){
                 do{                     //moving y if ship cant fit in at this position
                     ship_y = ship_y - 1;
                 } while(ship_y+size > y);

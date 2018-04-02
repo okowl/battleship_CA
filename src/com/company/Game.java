@@ -58,8 +58,6 @@ public class Game {
         } while (counter != number_players);
         new_board();
 
-        //u.print(p_list.get(0).getAge());
-
     }
 
     //method to get the size of the board from user and set up board
@@ -94,10 +92,10 @@ public class Game {
                 //
                 //uncomment this line if you want to see ships coordinates and check my program faster
                 //
-                //System.out.println("Ship coordinates "+Arrays.toString(b.getMy_ship()));
+                //u.print("Ship coordinates "+Arrays.toString(b.getMy_ship()));
                 //
                 u.print_board(b.getMy_board(), x, y);
-                u.print("\nIt's "+p_list.get(i).getName()+ "turn! \n");
+                u.print("\nIt's "+p_list.get(i).getName()+ " turn! \n");
 
                     attempt = valid_coordinates(); //get valid coordinates that wasn't used before
 
@@ -106,20 +104,21 @@ public class Game {
                     hits_left = hits_left + 1; //change hit's that left to do before the game will be finished
                     u.print("\n************* Congrats, it is hit *************\n");
                     miss = false;
+                    p_list.get(i).change_hits(); //change the amount of hits for this player
                     b.change_my_board(attempt, miss); //send coordinates to mark them at the board
                     //if statement for a win condition;
                     if(hits_left == b.getSize()){
                         game_finished = true;
-                        p_list.get(i).change_score(miss); //change the score for last player
                         break; // exit for loop in case ship size smaller than amount of players
                     }
 
                 } else { //if it's miss
                     u.print("\n************* Sorry, it's is a miss *************\n");
                     miss = true;
+                    p_list.get(i).change_miss(); //change the amount of miss for this player
                     b.change_my_board(attempt, miss);//send coordinates to mark them at the board
                 }
-                p_list.get(i).change_score(miss); //change the score of this particular player
+
             }
         }
 
@@ -129,21 +128,36 @@ public class Game {
     //method to find a winner
     void winner(){
         String winner = "";
-        int win_score = 100000;
+        int win_score = p_list.get(0).getMiss() - p_list.get(0).getHits();
+        boolean it_is_draw = false;
 
         //loop that checks which player has the smallest score
         //if next player has smaller score - replace winner name and winner score
         for(int i = 0; i < number_players; i++){
-           if(p_list.get(i).getScore() < win_score){
+           if(p_list.get(i).getMiss() - p_list.get(i).getHits() < win_score){ //if we have a leader with the smallest score
                winner = p_list.get(i).getName();
-               win_score = p_list.get(i).getScore();
+               win_score = p_list.get(i).getMiss() - p_list.get(i).getHits();
+               it_is_draw = false;
+
+           } //draw case
+           else if(p_list.get(i).getMiss() - p_list.get(i).getHits() == win_score){ //if for draw cases when all players have same results
+                it_is_draw = true;
+                winner = winner + "\n" + p_list.get(i).getName();
            }
 
         }
 
-        //print game winner
-        u.print("***************************************************"
-        +"\nAnd the winner is: "+winner+" with score: "+win_score);
+        if(it_is_draw == true){ //print for draw cases
+            u.print("***************************************************"
+                    +"\n\nIt's a draw!!! Congratulation our winners: "+winner+"\nScore: "+win_score
+                    +"\n\n***************************************************");
+
+
+        } else { //print game winner
+            u.print("***************************************************"
+            +"\n\nAnd the winner is: "+winner+" with score: "+win_score
+                        +"\n\n***************************************************");
+        }
 
         play_again();
     }
@@ -212,7 +226,7 @@ public class Game {
             u.print("Do you want to change players? \nPress 1 to play with same people. Press 2 to start with new players.");
             String same_players = u.validation("[1-2]", "Please use just numbers 1 or 2");
             //if player don't want to re-enter all information program will reset board
-            if(same_players.equals(1)){
+            if(same_players.equals("1")){
                 //loop to reset all players score
                 for(int i = 0; i < number_players; i++){
                     p_list.get(i).reset_score(); //reset all scores back to 10 points
