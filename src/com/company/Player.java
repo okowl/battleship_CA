@@ -23,7 +23,7 @@ public class Player {
         //now email
         u.print("Insert your email address please");
         //regex pattern that checks right pattern for email address with the limits for parts before and after @ and after .
-        mail = u.validation("[a-zA-Z0-9]+[._a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]*[a-zA-Z]*@[a-zA-Z0-9]{2,8}.[a-zA-Z.]{2,6}",
+        mail = u.validation("[a-zA-Z0-9]+[._a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]*[a-zA-Z]*@[a-zA-Z0-9]{2,8}+[.]+[a-zA-Z.]{2,6}",
                 "Invalid email address, please enter a valid one ");
 
         //now age

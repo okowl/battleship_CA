@@ -128,7 +128,7 @@ public class Game {
     //method to find a winner
     void winner(){
         String winner = "";
-        int win_score = p_list.get(0).getMiss() - p_list.get(0).getHits();
+        int win_score = p_list.get(0).getMiss();
         boolean it_is_draw = false;
 
         //loop that checks which player has the smallest score
