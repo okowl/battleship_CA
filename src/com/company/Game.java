@@ -9,6 +9,7 @@ public class Game {
     ArrayList <Player> p_list = new ArrayList<>();
     private int number_players;
     private int x, y;
+    private int rounds = 1;
     //creating an instance to make my Utility and board methods available in this class methods accessible here
     Utility u = new Utility();
     Board b = new Board();
@@ -120,6 +121,7 @@ public class Game {
                 }
 
             }
+            rounds =+ 1; // keep tracing how many attempts all players has done
         }
 
         winner();
@@ -128,7 +130,7 @@ public class Game {
     //method to find a winner
     void winner(){
         String winner = "";
-        int win_score = p_list.get(0).getMiss();
+        int win_score = rounds; //no one can have more points that rounds have bean in the game;
         boolean it_is_draw = false;
 
         //loop that checks which player has the smallest score
@@ -231,6 +233,7 @@ public class Game {
                 for(int i = 0; i < number_players; i++){
                     p_list.get(i).reset_score(); //reset all scores back to 10 points
                 }
+                rounds = 0;
                 new_board();
             } else {
              start();   //or start from the beginning
