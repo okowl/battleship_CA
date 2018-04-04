@@ -225,7 +225,7 @@ public class Game {
         String play_again = u.validation("[1-2]", "Please use just numbers 1 or 2"); //validation
 
         if(play_again.equals("1")){
-            u.print("Do you want to change players? \nPress 1 to play with same people. Press 2 to start with new players.");
+            u.print("Do you want to change players? \n1 for same amount of players to play. 2 to change amount of players.");
             String same_players = u.validation("[1-2]", "Please use just numbers 1 or 2");
             //if player don't want to re-enter all information program will reset board
             if(same_players.equals("1")){
@@ -236,7 +236,8 @@ public class Game {
                 rounds = 0;
                 new_board();
             } else {
-             start();   //or start from the beginning
+             start();
+             p_list.clear(); //or start from the beginning
             }
 
         } else {
